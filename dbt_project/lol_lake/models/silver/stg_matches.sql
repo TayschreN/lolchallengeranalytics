@@ -4,6 +4,7 @@ select
     match_id,
     patch,
     champion_name,
+    championId,
     team_position,
     win,
     kills,

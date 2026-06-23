@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_matches
+    description: "Partidas limpas e enriquecidas"
+    columns:
+      - name: match_id
+        description: "ID único da partida"
+        tests:
+          - not_null
+
+      - name: champion_name
+        tests:
+          - not_null
+
+      - name: win
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: team_position
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['TOP', 'JUNGLE', 'MIDDLE', 'BOTTOM', 'UTILITY', '']

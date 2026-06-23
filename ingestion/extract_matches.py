@@ -24,29 +24,33 @@ def extract_participant_row(participant, match_id, patch, duration):
         "game_duration": duration,
     }
 
-def run_extraction(max_players=10, matches_per_player=10):
+def extract_ban_rows(match, match_id, patch):
+    rows = []
+    for team in match["info"]["teams"]:
+        for ban in team.get("bans", []):
+            champ_id = ban.get("championId", -1)
+            if champ_id > 0:
+                rows.append({
+                    "match_id":    match_id,
+                    "patch":       ".".join(patch.split(".")[:2]),
+                    "champion_id": champ_id,
+                })
+    return rows
+
+def run_extraction(max_players=50, matches_per_player=20):
     print("Buscando jogadores challenger BR...")
     players = get_challenger_players()[:max_players]
 
-    # debug: mostra os campos disponíveis no primeiro jogador
-    if players:
-        print(f"Campos disponíveis: {list(players[0].keys())}")
-
-    rows = []
-    seen = set()
+    match_rows = []
+    ban_rows   = []
+    seen       = set()
 
     for i, player in enumerate(players):
-        # tenta pegar puuid direto da entry, senão busca pelo summonerId
+        name = player.get("summonerName", f"player_{i+1}")
         puuid = player.get("puuid")
-        name  = player.get("summonerName", f"player_{i+1}")
-        print(f"[{i+1}/{max_players}] {name} | puuid: {'sim' if puuid else 'não'}")
+        print(f"[{i+1}/{max_players}] {name}")
 
         try:
-            if not puuid:
-                from ingestion.riot_client import get_puuid
-                puuid = get_puuid(player["summonerId"])
-                time.sleep(0.5)
-
             match_ids = get_match_ids(puuid, count=matches_per_player)
             time.sleep(0.5)
 
@@ -61,22 +65,23 @@ def run_extraction(max_players=10, matches_per_player=10):
                 time.sleep(1.2)
 
                 for p in match["info"]["participants"]:
-                    rows.append(extract_participant_row(p, match_id, patch, duration))
+                    match_rows.append(extract_participant_row(p, match_id, patch, duration))
+
+                ban_rows.extend(extract_ban_rows(match, match_id, patch))
 
         except Exception as e:
             print(f"  Erro: {e}")
             continue
 
-    df = pd.DataFrame(rows)
-    save_bronze(df)
-    print(f"\nTotal: {len(df)} linhas extraídas")
-    return df
+    save_bronze(pd.DataFrame(match_rows), "matches")
+    save_bronze(pd.DataFrame(ban_rows),   "bans")
+    print(f"\nPartidas: {len(match_rows)} linhas | Bans: {len(ban_rows)} linhas")
 
-def save_bronze(df):
+def save_bronze(df, name):
     path = Path("data/bronze")
     path.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-    file = path / f"matches_{timestamp}.parquet"
+    file = path / f"{name}_{timestamp}.parquet"
     df.to_parquet(file, index=False)
     print(f"Salvo em {file}")
 
