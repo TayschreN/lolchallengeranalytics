@@ -6,21 +6,21 @@ models:
     columns:
       - name: match_id
         description: "ID único da partida"
-        tests:
+        data_tests:
           - not_null
 
       - name: champion_name
-        tests:
+        data_tests:
           - not_null
 
       - name: win
-        tests:
+        data_tests:
           - not_null
           - accepted_values:
               values: [true, false]
 
       - name: team_position
-        tests:
+        data_tests:
           - not_null
           - accepted_values:
               values: ['TOP', 'JUNGLE', 'MIDDLE', 'BOTTOM', 'UTILITY', '']

@@ -6,20 +6,20 @@ models:
     columns:
       - name: champion_name
         description: "Nome do campeão"
-        tests:
+        data_tests:
           - not_null
 
       - name: win_rate
         description: "Percentual de vitórias"
-        tests:
+        data_tests:
           - not_null
 
       - name: games_played
         description: "Total de partidas"
-        tests:
+        data_tests:
           - not_null
 
       - name: patch
         description: "Versão do patch"
-        tests:
+        data_tests:
           - not_null
