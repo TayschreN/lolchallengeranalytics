@@ -1,0 +1,30 @@
+[0m22:01:37.725410 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263B774C490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263BA80DBD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263BA8C6C90>]}
+
+
+============================== 22:01:37.751732 | 35bb1599-b9b4-4d43-ab13-8a5c1e1d5ee1 ==============================
+[0m22:01:37.751732 [info ] [MainThread]: Running with dbt=1.8.9
+[0m22:01:37.755731 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'fail_fast': 'False', 'log_path': 'logs', 'profiles_dir': 'C:\\Users\\gabri\\.dbt', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt init lol_lake', 'introspect': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m22:01:37.809241 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse logging event dictionary. Failed to parse dir field: expected string or bytes-like object, got 'WindowsPath'.. Dictionary: {'dir': WindowsPath('C:/Users/gabri/.dbt')}
+[0m22:01:37.809241 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m22:01:37.813844 [debug] [MainThread]: Starter project path: C:\Users\gabri\Desktop\.venv\Lib\site-packages\dbt\include\starter_project
+[0m22:01:37.903487 [info ] [MainThread]: 
+Your new dbt project "lol_lake" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:01:37.903487 [info ] [MainThread]: Setting up your profile.
+[0m22:01:47.003244 [info ] [MainThread]: Profile lol_lake written to C:\Users\gabri\.dbt\profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m22:01:47.007269 [debug] [MainThread]: Command `dbt init` succeeded at 22:01:47.007269 after 9.38 seconds
+[0m22:01:47.007269 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263B3DA4DD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263B3FE2090>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000263BA8C6990>]}
+[0m22:01:47.007269 [debug] [MainThread]: Flushing usage events
